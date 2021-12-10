@@ -1,0 +1,54 @@
+.expense {
+  color: white;
+  background-color: rgb(100, 92, 92);
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.7rem;
+  align-items: center;
+}
+
+li {
+    margin-bottom: 1rem;
+}
+
+.info {
+  display: flex;
+  flex-grow: 2;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 87%;
+}
+
+@media (min-width: 580px) {
+  .info h2 {
+    margin-left: 1.3rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .info {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 2.5rem;
+  }
+
+  .info h2 {
+    margin: 0 0.8rem 0 0;
+    font-size: 1.2rem;
+  }
+}
+
+.price {
+  font-weight: bold;
+  background-color: #40005d;
+  border: 1px solid white;
+  border-radius: 14px;
+  padding: 0.5rem 1rem;
+}
+
+@media (min-width: 580px) {
+  .price {
+    font-size: 1.2rem;
+    padding: 0.5rem 1.5rem;
+  }
+}

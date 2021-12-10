@@ -1,0 +1,60 @@
+.form-wrapper {
+  background-color: rgb(160, 122, 196);
+  margin: 2rem auto;
+  width: 50rem;
+  max-width: 88%;
+  padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  width: 100%;
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1rem;
+  gap: 1rem;
+  margin: 0 1rem 0 1rem;
+}
+
+label {
+  margin-right: 1rem;
+  font-weight: bold;
+}
+
+input {
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgb(189, 171, 171);
+  padding: 0.5rem;
+  width: 97.5%;
+  font: inherit;
+}
+
+button {
+  background-color: #40005d;
+  color: white;
+  border-radius: 14px;
+  border: 1px solid #40005d;
+  padding: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 1rem 0 0;
+  justify-content: flex-end;
+  width: 97.5%;
+}
+
+button:hover,
+button:active {
+  background-color: #40005dc7;
+}
