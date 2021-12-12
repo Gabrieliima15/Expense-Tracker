@@ -8,7 +8,7 @@ import { Fragment, useState } from "react";
 
 function App() {
   const [expenses, setExpenses] = useState([]);
-  const [filteredYear, setFilteredYear] = useState("");
+  const [filteredYear, setFilteredYear] = useState("2021");
   const [filterIsValid, setFilterIsValid] = useState(true);
 
   const filterChangeHandler = (selectedYear) => {
