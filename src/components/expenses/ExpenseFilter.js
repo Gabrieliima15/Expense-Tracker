@@ -5,7 +5,7 @@ import SearchIcon from "./SearchIcon";
 const ExpenseFilter = (props) => {
   const [enteredYear, setEnteredYear] = useState("");
 
-  const dropdownChangeHandler = (event) => {
+  const dropdownChangeHandler = () => {
     props.onChange(enteredYear);
   };
 
