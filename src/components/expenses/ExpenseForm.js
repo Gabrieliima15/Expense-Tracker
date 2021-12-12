@@ -62,7 +62,13 @@ const ExpenseForm = (props) => {
 
   return (
     <Fragment>
-      {!formIsValid && <ErrorModal onClick={onClose} />}
+      {!formIsValid && (
+        <ErrorModal
+          onClick={onClose}
+          title="Invalid Input"
+          message="Please fill out all fields!"
+        />
+      )}
       <Card className={classes["form-wrapper"]}>
         {formIsShown && (
           <form className={classes.form} onSubmit={submitHandler}>

@@ -24,6 +24,7 @@ const ExpenseFilter = (props) => {
             onChange={yearHandler}
             placeholder="Year"
             min="2000"
+            max="2022"
           ></input>
           <button onClick={dropdownChangeHandler}>
             <SearchIcon />
