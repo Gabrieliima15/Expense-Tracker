@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import classes from "./ExpenseFilter.module.css";
 import SearchIcon from "./SearchIcon";
 
