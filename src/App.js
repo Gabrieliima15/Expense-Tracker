@@ -46,9 +46,9 @@ function App() {
       <Card className={classes.container}>
         <ExpenseFilter selected={filteredYear} onChange={filterChangeHandler} />
         {filteredExpenses.length === 0 && (
-          <p className={classes.message}>{`No expenses found${
-            filteredYear !== "" ? ` in ${filteredYear}` : ""
-          }.`}</p>
+          <p
+            className={classes.message}
+          >{`No expenses found in ${filteredYear}.`}</p>
         )}
         <ExpenseList expenses={filteredExpenses} />
       </Card>
