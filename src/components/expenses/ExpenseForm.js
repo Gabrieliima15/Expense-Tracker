@@ -6,12 +6,31 @@ import ErrorModal from "./ErrorModal";
 const ExpenseForm = (props) => {
   const [formIsShown, setFormIsShown] = useState(false);
   const [formIsValid, setFormIsValid] = useState(true);
+  const [titleWasTouched, setTitleWasTouched] = useState(false);
+  const [priceWasTouched, setPriceWasTouched] = useState(false);
+  const [dateWasTouched, setDateWasTouched] = useState(false);
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredPrice, setEnteredPrice] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
 
+  const titleIsValid = !(enteredTitle.trim().length === 0);
+  const priceIsValid = !(enteredPrice.trim().length === 0);
+  const dateIsValid = !(enteredDate.trim().length === 0);
+
   const onClose = () => {
     setFormIsValid(true);
+  };
+
+  const titleBlurHandler = () => {
+    setTitleWasTouched(true);
+  };
+
+  const priceBlurHandler = () => {
+    setPriceWasTouched(true);
+  };
+
+  const dateBlurHandler = () => {
+    setDateWasTouched(true);
   };
 
   const titleHandler = (event) => {
@@ -29,12 +48,11 @@ const ExpenseForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (
-      enteredTitle.trim().length === 0 ||
-      enteredPrice.trim().length === 0 ||
-      enteredDate.trim().length === 0
-    ) {
+    if (!titleIsValid || !priceIsValid || !dateIsValid) {
       setFormIsValid(false);
+      setTitleWasTouched(true);
+      setPriceWasTouched(true);
+      setDateWasTouched(true);
       return;
     }
 
@@ -50,6 +68,9 @@ const ExpenseForm = (props) => {
     setEnteredTitle("");
     setEnteredPrice("");
     setEnteredDate("");
+    setTitleWasTouched(false);
+    setPriceWasTouched(false);
+    setDateWasTouched(false);
   };
 
   const showFormHandler = () => {
@@ -79,25 +100,37 @@ const ExpenseForm = (props) => {
                   type="text"
                   value={enteredTitle}
                   onChange={titleHandler}
+                  onBlur={titleBlurHandler}
                 ></input>
+                {titleWasTouched && !titleIsValid && (
+                  <p className={classes.invalid}>Title must not be empty.</p>
+                )}
               </div>
               <div className={classes.fields}>
                 <label>Price</label>
                 <input
                   onChange={priceHandler}
+                  onBlur={priceBlurHandler}
                   value={enteredPrice}
                   type="number"
                   min="0"
                   step="0.01"
                 ></input>
+                {priceWasTouched && !priceIsValid && (
+                  <p className={classes.invalid}>Price must not be empty.</p>
+                )}
               </div>
               <div className={classes.fields}>
                 <label>Date</label>
                 <input
                   onChange={dateHandler}
+                  onBlur={dateBlurHandler}
                   value={enteredDate}
                   type="date"
                 ></input>
+                {dateWasTouched && !dateIsValid && (
+                  <p className={classes.invalid}>Date must not be empty.</p>
+                )}
               </div>
             </div>
             <div className={classes.buttons}>

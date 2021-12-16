@@ -59,3 +59,8 @@ button:hover,
 button:active {
   background-color: #40005dc7;
 }
+
+.invalid {
+  color: rgba(146, 0, 0, 0.925);
+  margin-bottom: 0.3rem;
+}
