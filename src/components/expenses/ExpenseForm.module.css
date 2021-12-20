@@ -64,3 +64,12 @@ button:active {
   color: rgba(146, 0, 0, 0.925);
   margin-bottom: 0.3rem;
 }
+
+.submit:disabled,
+.submit:disabled:hover,
+.submit:disabled:active {
+  background-color: #ccc;
+  color: #292929;
+  border-color: #ccc;
+  cursor: not-allowed;
+}

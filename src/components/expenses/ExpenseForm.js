@@ -1,60 +1,46 @@
 import classes from "./ExpenseForm.module.css";
 import Card from "../UI/Card";
 import { useState, Fragment } from "react";
-import ErrorModal from "./ErrorModal";
+import useInput from "../../hooks/use-input";
 
 const ExpenseForm = (props) => {
   const [formIsShown, setFormIsShown] = useState(false);
-  const [formIsValid, setFormIsValid] = useState(true);
-  const [titleWasTouched, setTitleWasTouched] = useState(false);
-  const [priceWasTouched, setPriceWasTouched] = useState(false);
-  const [dateWasTouched, setDateWasTouched] = useState(false);
-  const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredPrice, setEnteredPrice] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
 
-  const titleIsValid = !(enteredTitle.trim().length === 0);
-  const priceIsValid = !(enteredPrice.trim().length === 0);
-  const dateIsValid = !(enteredDate.trim().length === 0);
+  const {
+    value: enteredTitle,
+    hasError: titleHasError,
+    valueChangeHandler: titleHandler,
+    inputBlurHandler: titleBlurHandler,
+    valueIsValid: titleIsValid,
+    reset: resetTitle,
+  } = useInput((value) => value.trim() !== "");
 
-  const onClose = () => {
-    setFormIsValid(true);
-  };
+  const {
+    value: enteredPrice,
+    hasError: priceHasError,
+    valueChangeHandler: priceHandler,
+    inputBlurHandler: priceBlurHandler,
+    valueIsValid: priceIsValid,
+    reset: resetPrice,
+  } = useInput((value) => value.trim() !== "");
 
-  const titleBlurHandler = () => {
-    setTitleWasTouched(true);
-  };
+  const {
+    value: enteredDate,
+    hasError: dateHasError,
+    valueChangeHandler: dateHandler,
+    inputBlurHandler: dateBlurHandler,
+    valueIsValid: dateIsValid,
+    reset: resetDate,
+  } = useInput((value) => value.trim() !== "");
 
-  const priceBlurHandler = () => {
-    setPriceWasTouched(true);
-  };
+  let formIsValid = false;
 
-  const dateBlurHandler = () => {
-    setDateWasTouched(true);
-  };
-
-  const titleHandler = (event) => {
-    setEnteredTitle(event.target.value);
-  };
-
-  const priceHandler = (event) => {
-    setEnteredPrice(event.target.value);
-  };
-
-  const dateHandler = (event) => {
-    setEnteredDate(event.target.value);
-  };
+  if (titleIsValid && priceIsValid && dateIsValid) {
+    formIsValid = true;
+  }
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    if (!titleIsValid || !priceIsValid || !dateIsValid) {
-      setFormIsValid(false);
-      setTitleWasTouched(true);
-      setPriceWasTouched(true);
-      setDateWasTouched(true);
-      return;
-    }
 
     const expenseData = {
       id: Math.random().toString(),
@@ -65,12 +51,9 @@ const ExpenseForm = (props) => {
 
     props.onNewExpense(expenseData);
 
-    setEnteredTitle("");
-    setEnteredPrice("");
-    setEnteredDate("");
-    setTitleWasTouched(false);
-    setPriceWasTouched(false);
-    setDateWasTouched(false);
+    resetTitle();
+    resetPrice();
+    resetDate();
   };
 
   const showFormHandler = () => {
@@ -83,13 +66,6 @@ const ExpenseForm = (props) => {
 
   return (
     <Fragment>
-      {!formIsValid && (
-        <ErrorModal
-          onClick={onClose}
-          title="Invalid Input"
-          message="Please fill out all fields!"
-        />
-      )}
       <Card className={classes["form-wrapper"]}>
         {formIsShown && (
           <form className={classes.form} onSubmit={submitHandler}>
@@ -102,7 +78,7 @@ const ExpenseForm = (props) => {
                   onChange={titleHandler}
                   onBlur={titleBlurHandler}
                 ></input>
-                {titleWasTouched && !titleIsValid && (
+                {titleHasError && (
                   <p className={classes.invalid}>Title must not be empty.</p>
                 )}
               </div>
@@ -116,7 +92,7 @@ const ExpenseForm = (props) => {
                   min="0"
                   step="0.01"
                 ></input>
-                {priceWasTouched && !priceIsValid && (
+                {priceHasError && (
                   <p className={classes.invalid}>Price must not be empty.</p>
                 )}
               </div>
@@ -128,14 +104,16 @@ const ExpenseForm = (props) => {
                   value={enteredDate}
                   type="date"
                 ></input>
-                {dateWasTouched && !dateIsValid && (
+                {dateHasError && (
                   <p className={classes.invalid}>Date must not be empty.</p>
                 )}
               </div>
             </div>
             <div className={classes.buttons}>
               <button onClick={hideFormHandler}>Cancel</button>
-              <button>Add Expense</button>
+              <button disabled={!formIsValid} className={classes.submit}>
+                Add Expense
+              </button>
             </div>
           </form>
         )}
